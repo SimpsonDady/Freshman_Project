@@ -125,7 +125,6 @@ void move (int money[],int location[],int i)
     srand(time(NULL));
     int dice1=rand()%6+1,dice2=rand()%6+1,total;
     total=dice1+dice2;
-    printf("The dice point:%d + %d = %d",dice1,dice2,total);
     printf("The dice point:%d + %d = %d\n",dice1,dice2,total);
     location[i]+=total;
     if(location[i]>=20){
