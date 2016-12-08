@@ -320,7 +320,7 @@ void chance(int player,int money[],int price[][4],int type[],int stay[],int leve
             }while(flag==0);
             if(choice!=player)
             {
-                sum=(sum+money[player]+money[choice])\10;
+                sum=(sum+money[player]+money[choice])/10;
                 money[choice]=sum*4;
                 money[player]=sum*6;
             }
