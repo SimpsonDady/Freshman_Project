@@ -159,7 +159,7 @@ void toll(int player,int type[],int money[],int level[],int tolls[][4],int locat
 void land(int player,int money[],int price[][4],int type[],int level[],int location)
 {
     char decide;
-    printf("Do you want to buy this land?(y/n):");
+    printf("Do you want to buy this land $:%d?(y/n):",price[location][0]);
     do{
         scanf(" %c",&decide);
         if(decide!='y'&&decide!='n')
@@ -194,7 +194,7 @@ void hospital(int player,int money[],int stay[])
 void upgrade(int player,int money[],int price[][4],int type[],int level[],int location)
 {
     char decide;
-    printf("Do you want to upgrade this land?(y/n):");
+    printf("Do you want to upgrade this land $:%d?(y/n):",price[location][level[location]]);
     do{
         scanf(" %c",&decide);
         if(decide!='y'&&decide!='n')
@@ -400,12 +400,12 @@ void fate(int player,int money[],int price[][4],int type[],int stay[],int level[
             printf("連續四塊地會被降低一等\n");
             break;
         case 6:
-            for(i=0;i<4;i++)
+            for(i=0;i<allplayer;i++)
             {
                 sum+=money[i];
             }
-            sum=sum/allplayer;
-            for(i=0;i<4;i++)
+            sum=sum/allplayer;system("pause");
+            for(i=0;i<allplayer;i++)
             {
                 money[i]=sum;
             }
@@ -521,10 +521,12 @@ int main()
                 if(stay[i]>0)
                 {
                     printf("%c need to stay %d\n",65+i,stay[i]);
+                    system("pause");
                     stay[i]-=1;
                 }
                 else
                 {
+                    system("pause");
                     move(money,location,i);
                     printf("Location:%d\n",location[i]);
                     if(type[location[i]]==6&&protection[i]==0)
