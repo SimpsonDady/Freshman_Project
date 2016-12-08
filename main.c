@@ -47,7 +47,7 @@ void display(char Mname[][7],int level[],int owner[],int location[],int num_game
             printf("\t");
             for(j=0;j<num_gamer;j++)
             {
-                if(location[j]==i)
+                if(location[j]==i+1)
                 {
                     printf("%c",code[j]);
                 }
@@ -126,7 +126,7 @@ void move (int money[],int location[],int i)
     srand(time(NULL));
     int dice1=rand()%6+1,dice2=rand()%6+1,total;
     total=dice1+dice2;
-    printf("The dice point:%d + %d = %d\n",dice1,dice2,total);
+    printf("The dice point:%d + %d = %d",dice1,dice2,total);
     location[i]+=total;
     if(location[i]>=20){
         location[i]-=20;
@@ -145,7 +145,7 @@ void broke(int player,int level[],int type[])
     {
         if(type[i]==player)
         {
-            type[i]=0;
+            type[i]=4;
             level[i]=1;
         }
     }
@@ -217,7 +217,7 @@ void upgrade(int player,int money[],int price[][4],int type[],int level[],int lo
 }
 void chance(int player,int money[],int price[][4],int type[],int stay[],int level[],int tolls[],int location[],int protection[],int allplayer)
 {
-    int dice,i,j,choice,flag=0;
+    int dice,i,j,choice,flag=0,sum=0;
     char playerchoice;
     dice=rand()%10+1;
     switch(dice)
@@ -247,7 +247,7 @@ void chance(int player,int money[],int price[][4],int type[],int stay[],int leve
             do{
                 scanf("%d",&choice);
                 choice-=1;
-                if(level[choice]==0)
+                if(level[choice]==1)
                 {
                     choice=100;
                 }
@@ -268,28 +268,63 @@ void chance(int player,int money[],int price[][4],int type[],int stay[],int leve
             printf("已到達\n");
             break;
         case 5:
-            printf("直接到達該起點(加2000)\n");
             location[player]=0;
             money[player]+=2000;
+            printf("直接到達該起點(加2000)\n");
             break;
         case 6:
-            printf("選擇一塊無人地(輸入1~20 起點為1 處理器為20)獲得擁有權:");
-            do{
-                scanf("%d",&choice);
-                choice-=1;
-                if(type[choice]!=0)
+            for(i=0;i<20;i++)
+            {
+                if(type[i]<4)
                 {
-                    choice=100;
+                    flag++;
                 }
-                else
-                {
-                    type[choice]=player;
-                }
-            }while(choice>19||choice<0);
-            printf("已獲得\n");
+            }
+            if(flag!=16)
+            {
+                printf("選擇一塊無人地(輸入1~20 起點為1 處理器為20)獲得擁有權:");
+                do{
+                    scanf("%d",&choice);
+                    choice-=1;
+                    if(type[choice]<4)
+                    {
+                        choice=100;
+                    }
+                    else
+                    {
+                        type[choice]=player;
+                    }
+                }while(choice>19||choice<0);
+                printf("已獲得\n");
+            }
+            else if(flag==16)
+            {
+                money[player]+=5487;
+                printf("都有人了幫你QQ，送你5487元\n");
+            }
             break;
         case 7:
-            printf("銘謝惠顧\n");
+            printf("選擇一個人和你資產2:3分配(可以為自己):");
+            do{
+                scanf("%c",&playerchoice);
+                if(65<=playerchoice&&playerchoice<=64+allplayer)
+                {
+                    choice=playerchoice-65;
+                    flag=1;
+                }
+                else if(97<=playerchoice&&playerchoice<=96+allplayer)
+                {
+                    choice=playerchoice-97;
+                    flag=1;
+                }
+            }while(flag==0);
+            if(choice!=player)
+            {
+                sum=(sum+money[player]+money[choice])\10;
+                money[choice]=sum*4;
+                money[player]=sum*6;
+            }
+            printf("已分配\n");
             break;
         case 8:
             printf("選擇一名玩家(輸入英文代號)使他停留3回合:");
@@ -312,6 +347,7 @@ void chance(int player,int money[],int price[][4],int type[],int stay[],int leve
         case 9:
             money[player]+=5000;
             printf("獲得5000元\n");
+            break;
         case 10:
             protection[player]++;
             printf("免疫一次入獄或住院\n");
@@ -334,7 +370,7 @@ void fate(int player,int money[],int price[][4],int type[],int stay[],int level[
             do
             {
                 dice=rand()%19+0;
-            }while(level[dice]==0);
+            }while(level[dice]==1);
             level[dice]-=1;
             printf("違建所以隨機降低一棟土地的等級\n");
             break;
@@ -421,8 +457,8 @@ void fate(int player,int money[],int price[][4],int type[],int stay[],int level[
 }
 int main()
 {
-    int money[4],out[4],location[4],level[20],stay[4],type[20]/*0~3:有人地,4:無人地6:監獄,8:醫院,5:起點7:商店*/;
-    int people,i,j,flag=0,price[20][4],tolls[20][4];
+    int money[4],out[4],location[4],level[20],stay[4],type[20]/*0~3:有人地,4:無人地6:監獄,8:醫院,5:起點7:機會命運*/;
+    int people,i,j,flag=0,price[20][4],tolls[20][4],protection[4],dice;
     char name[20][7],player_name[4][50];
     srand(time(NULL));
     do
@@ -443,6 +479,7 @@ int main()
         money[i]=50000;
         out[i]=0;
         location[i]=0;
+        protection[i]=0;
     }
     for(i=0;i<=19;i++)
     {
@@ -471,17 +508,11 @@ int main()
         }
     }
     fclose(file);
-    for(i=0;i<=19;i++)
-    {
-        printf("%s\t",name[i]);
-    }
-    printf("\n");
+    system("pause");
     while(flag!=people-1)
     {
         for(i=0;i<people;i++)
         {
-            system("pause");
-            system("CLS");
             display(name,level,type,location,people,money,player_name);
             printf("\n");
             if(money[i]>=0&&out[i]==0)
@@ -496,13 +527,39 @@ int main()
                 {
                     move(money,location,i);
                     printf("Location:%d\n",location[i]);
-                    if(type[location[i]]==6)
+                    if(type[location[i]]==6&&protection[i]==0)
                     {
-                        prison(i,stay);
+                        if(protection[i]==0)
+                        {
+                            prison(i,stay);
+                        }
+                        else if(protection[i]==1)
+                        {
+                            protection[i]-=1;
+                        }
                     }
                     else if(type[location[i]]==8)
                     {
-                        hospital(i,money,stay);
+                        if(protection[i]==0)
+                        {
+                            hospital(i,money,stay);
+                        }
+                        else if(protection[i]==1)
+                        {
+                            protection[i]-=1;
+                        }
+                    }
+                    else if(type[location[i]]==7)
+                    {
+                        dice=rand()%2;
+                        if(dice==1)
+                        {
+                            fate(i,money,price,type,stay,level,tolls,location,people);
+                        }
+                        else if(dice==0)
+                        {
+                            chance(i,money,price,type,stay,level,tolls,location,people,protection);
+                        }
                     }
                     else if(type[location[i]]!=i&&type[location[i]]!=4&&type[location[i]]!=5&&type[location[i]]!=6&&type[location[i]]!=7&&type[location[i]]!=8)
                     {
@@ -512,7 +569,7 @@ int main()
                     {
                         land(i,money,price,type,level,location[i]);
                     }
-                    else if(type[location[i]]==i)
+                    else if(type[location[i]]==i&&level[location[i]]<=4)
                     {
                         upgrade(i,money,price,type,level,location[i]);
                     }
@@ -530,6 +587,12 @@ int main()
                 out[i]=1;
                 flag++;
             }
+            if(money[i]>=0)
+            {
+                system("pause");
+                system("CLS");
+            }
+
         }
     }
     for(i=0;i<people;i++)
