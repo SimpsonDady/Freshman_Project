@@ -5,16 +5,16 @@
 #include <stdlib.h>
 #include <windows.h>
 
-void display(char Mname[][7],int level[],int owner[],int location[],int num_gamer,int money[],char Pname[][7])
+void display(char Mname[][7],int level[],int owner[],int location[],int num_gamer,int money[],char Pname[][50])
 {
     int i,j,count=7,c;
-    char code[5]={'L','A','B','C','D'};
+    char code[5]={'A','B','C','D','L'};
     printf("%d",owner[12]);
     printf("\n\t\t");
 
     for(i=0;i<6;i++)
     {
-        for(j=1;j<=num_gamer;j++)
+        for(j=0;j<num_gamer;j++)
         {
             if(location[j]==10+i)
                 {
@@ -25,6 +25,7 @@ void display(char Mname[][7],int level[],int owner[],int location[],int num_game
         printf("\t\t");
 
     }
+
     printf("\n");
     for(i=10;i>=5;i--)
     {
@@ -44,9 +45,9 @@ void display(char Mname[][7],int level[],int owner[],int location[],int num_game
         else if(i<=9&&i>5)
         {
             printf("\t");
-            for(j=1;j<=num_gamer;j++)
+            for(j=0;j<num_gamer;j++)
             {
-                if(location[j]==i+1)
+                if(location[j]==i)
                 {
                     printf("%c",code[j]);
                 }
@@ -54,7 +55,7 @@ void display(char Mname[][7],int level[],int owner[],int location[],int num_game
             }
 
             printf("\t%s\t%c.%d\t\t\t\t\t\t\t\t%c.%d\t%s\t",Mname[i],code[owner[i]],level[i],code[owner[i+count]],level[i+count],Mname[i+count]);
-            for(j=1;j<=num_gamer;j++)
+            for(j=0;j<num_gamer;j++)
             {
                 if(location[j]==i+count)
                 {
@@ -83,9 +84,9 @@ void display(char Mname[][7],int level[],int owner[],int location[],int num_game
                 printf("%s\t\t",Mname[i-j]);
             }
             printf("\n\t\t");
-            for(c=6;c>=0;c--)
+            for(c=5;c>=0;c--)
             {
-                for(j=1;j<=num_gamer;j++)
+                for(j=0;j<num_gamer;j++)
                 {
                     if(location[j]==c)
                     {
