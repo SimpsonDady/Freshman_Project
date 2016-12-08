@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+#include <string.h>
 
 void display(char Mname[][7],int level[],int owner[],int location[],int num_gamer,int money[],char Pname[][50])
 {
@@ -105,17 +106,19 @@ void display(char Mname[][7],int level[],int owner[],int location[],int num_game
     printf("\t\t\t代號：\t");
     for(i=0;i<num_gamer;i++)
     {
-        printf("\t   %c\t",code[i]);
+        printf("\t%c\t",code[i]);
     }
     printf("\n\t\t\t名字：\t");
     for(i=0;i<num_gamer;i++)
     {
+
         printf("\t%s\t",Pname[i]);
     }
     printf("\n\t\t\t金錢：\t");
     for(i=0;i<num_gamer;i++)
     {
-        printf("\t%6d\t",money[i]);
+
+        printf("\t%d\t",money[i]);
     }
 
 
@@ -529,6 +532,7 @@ int main()
                     system("pause");
                     move(money,location,i);
                     printf("Location:%d\n",location[i]);
+
                     if(type[location[i]]==6&&protection[i]==0)
                     {
                         if(protection[i]==0)
