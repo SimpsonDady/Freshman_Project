@@ -48,7 +48,7 @@ void display(char Mname[][7],int level[],int owner[],int location[],int num_game
             printf("\t");
             for(j=0;j<num_gamer;j++)
             {
-                if(location[j]==i+1)
+                if(location[j]==i)
                 {
                     printf("%c",code[j]);
                 }
