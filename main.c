@@ -135,7 +135,7 @@ void display(char Mname[][7],int level[],int owner[],int location[],int num_game
 
 }
 
-void move (int money[],int location[],int i)
+void move (int name[][7],int level[],int type[],int location[],int people,int money[],int player_name[][50],int i)
 {
     srand(time(NULL));
     int dice1=rand()%6+1,dice2=rand()%6+1,total;
@@ -144,12 +144,9 @@ void move (int money[],int location[],int i)
     location[i]+=total;
     if(location[i]>=20){
         location[i]-=20;
-        if(location[i]==0){
-        }
-        else{
-            money[i]+=2000;
-        }
+        money[i]+=2000;
     }
+    move_display(name,level,type,location,people,money,player_name,total,i);
 }
 
 void broke(int player,int level[],int type[])
@@ -541,7 +538,7 @@ int main()
                 else
                 {
                     system("pause");
-                    move(money,location,i);
+                    move(name,level,type,location,people,money,player_name,i);
                     printf("Location:%d\n",location[i]);
 
                     if(type[location[i]]==6&&protection[i]==0)
