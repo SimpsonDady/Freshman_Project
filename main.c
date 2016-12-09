@@ -11,7 +11,7 @@ void move_display(char Mname[][7],int level[],int owner[],int location[],int num
     location[turn]-=temp;
     for(i=0;i<=temp;i++)
     {
-        display(Mname,owner,location,num_gamer,money,Pname);
+        display(Mname,level,owner,location,num_gamer,money,Pname);
         location[turn]++;
         system("CLS");
     }
@@ -137,10 +137,9 @@ void display(char Mname[][7],int level[],int owner[],int location[],int num_game
 
 void move (int name[][7],int level[],int type[],int location[],int people,int money[],int player_name[][50],int i)
 {
-    srand(time(NULL));
-    int dice1=rand()%6+1,dice2=rand()%6+1,total;
-    total=dice1+dice2;
-    printf("The dice point:%d + %d = %d",dice1,dice2,total);
+    int dice1 = rand()%6+1, dice2 = rand()%6+1, total;
+    total = dice1+dice2;
+    printf("The dice point is %d + %d = %d\n",dice1, dice2, total);
     location[i]+=total;
     if(location[i]>=20){
         location[i]-=20;
