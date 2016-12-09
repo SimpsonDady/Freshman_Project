@@ -5,7 +5,18 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <string.h>
-
+void move_display(char Mname[][7],int level[],int owner[],int location[],int num_gamer,int money[],char Pname[][50],int temp,int turn)
+{
+    int i;
+    location[turn]-=temp;
+    for(i=0;i<=temp;i++)
+    {
+        display(Mname,owner,location,num_gamer,money,Pname);
+        location[turn]++;
+        system("CLS");
+    }
+    display(Mname,owner,location,num_gamer,money,Pname);
+}
 void display(char Mname[][7],int level[],int owner[],int location[],int num_gamer,int money[],char Pname[][50])
 {
     int i,j,count=7,c;
