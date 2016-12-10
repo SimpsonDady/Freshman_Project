@@ -7,18 +7,21 @@
 #include <string.h>
 void move_display(char Mname[][7],int level[],int owner[],int location[],int num_gamer,int money[],char Pname[][50],int temp,int turn)
 {
-    int i;
+        int i;
     location[turn]-=temp;
-    system("cls");
+
+    system("CLS");
+
     for(i=0;i<=temp;i++)
     {
         display(Mname,level,owner,location,num_gamer,money,Pname);
         location[turn]++;
         Sleep(500);
-        system("cls");
-        if(location[i]>19)
+        system("CLS");
+        if(location[turn]>19)
         {
-            location[i]-=20;
+            location[turn]-=20;
+            money[turn]+=2000;
         }
 
     }
@@ -149,10 +152,7 @@ void move (int name[][7],int level[],int type[],int location[],int people,int mo
     printf("The dice point is %d + %d = %d\n",dice1, dice2, total);
     system("pause");
     location[i]+=total;
-    if(location[i]>=20){
-        location[i]-=20;
-        money[i]+=2000;
-    }
+
     move_display(name,level,type,location,people,money,player_name,total,i);
 }
 
