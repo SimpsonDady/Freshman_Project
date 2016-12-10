@@ -146,7 +146,7 @@ void move (int name[][7],int level[],int type[],int location[],int people,int mo
 {
     int dice1 = rand()%6+1, dice2 = rand()%6+1, total;
     total = dice1+dice2;
-    printf("The dice point is %d + %d = %d\n",dice1, dice2, total);
+    printf("第一顆骰子: %d\n第二顆骰子: %d\n總合為: %d\n",dice1, dice2, total);
     system("pause");
     location[i]+=total;
     if(location[i]>=20){
@@ -170,26 +170,26 @@ void broke(int player,int level[],int type[])
 }
 void toll(int player,int type[],int money[],int level[],int tolls[][4],int location)
 {
-    printf("You must pay to %c for %d dollars\n",type[location]+65,tolls[location][level[location]-1]);
+    printf("您必須付給%c過路費喔!!%d元\n",type[location]+65,tolls[location][level[location]-1]);
     money[player]-=tolls[location][level[location]-1];
     money[type[location]]+=tolls[location][level[location]-1];
 }
 void land(int player,int money[],int price[][4],int type[],int level[],int location)
 {
     char decide;
-    printf("Do you want to buy this land $:%d?(y/n):",price[location][0]);
+    printf("您想買下這塊地嗎(%d元)?(y/n):",price[location][0]);
     do{
         scanf(" %c",&decide);
         if(decide!='y'&&decide!='n')
         {
-            printf("Please enter again\n");
+            printf("請再輸入一次\n");
         }
     }while(decide!='y'&&decide!='n');
     if(decide=='y')
     {
         if(money[player]<price[location][0])
         {
-            printf("Your money is not enough\n");
+            printf("您的錢錢不夠喔\n");
         }
         else
         {
@@ -200,30 +200,67 @@ void land(int player,int money[],int price[][4],int type[],int level[],int locat
 }
 void prison(int player,int stay[])
 {
-    printf("You must stay here 5 day\n");
-    stay[player]=stay[player]+5;
+    int a;
+    a=rand()%8+1;
+    switch(a)
+    {
+        case 1:
+            stay[player]=stay[player]+3;
+            printf("您必須待在此處3天，罪名:莫須有\n");
+            break;
+        case 2:
+            stay[player]=stay[player]+5;
+            printf("您必須待在此處5天，罪名:內亂罪\n");
+            break;
+        case 3:
+            stay[player]=stay[player]+2;
+            printf("您必須待在此處2天，罪名:偽造貨幣罪\n");
+            break;
+        case 4:
+            stay[player]=stay[player]+6;
+            printf("您必須待在此處6天，罪名:公共危險罪\n");
+            break;
+        case 5:
+            stay[player]=stay[player]+8;
+            printf("您必須待在此處8天，罪名:公妨害性自主罪\n");
+            break;
+        case 6:
+            stay[player]=stay[player]+1;
+            printf("您必須待在此處1天，罪名:褻瀆祀典及侵害墳墓屍體罪\n");
+            break;
+        case 7:
+            stay[player]=stay[player]+7;
+            printf("您必須待在此處7天，罪名:傷害罪\n");
+            break;
+        case 8:
+            stay[player]=stay[player]+4;
+            printf("您必須待在此處4天，罪名:妨害自由罪\n");
+            break;
+    }
+
+
 }
 void hospital(int player,int money[],int stay[])
 {
-    printf("You must stay here 3 day and must pay 1000 dollars\n");
+    printf("您受傷了需要住院治療3天並付醫藥費1000元喔!!\n");
     money[player]-=1000;
     stay[player]=stay[player]+3;
 }
 void upgrade(int player,int money[],int price[][4],int type[],int level[],int location)
 {
     char decide;
-    printf("Do you want to upgrade this land $:%d?(y/n):",price[location][level[location]]);
+    printf("您想要升級此地嗎(%d元)?(y/n):",price[location][level[location]]);
     do{
         scanf(" %c",&decide);
         if(decide!='y'&&decide!='n')
         {
-            printf("Please enter again\n");
+            printf("請再輸入一次\n");
         }
     }while(decide!='y'&&decide!='n');
     if(decide=='y'){
         if(money[player]<price[location][level[location]])
         {
-            printf("Your money is not enough\n");
+            printf("您的錢不夠喔\n");
         }
         else
         {
@@ -318,11 +355,11 @@ void chance(int player,int money[],int price[][4],int type[],int stay[],int leve
             else if(flag==16)
             {
                 money[player]+=5487;
-                printf("都有人了幫你QQ，送你5487元\n");
+                printf("都有人了幫您QQ，送您5487元\n");
             }
             break;
         case 7:
-            printf("選擇一個人和你資產2:3分配(可以為自己):");
+            printf("選擇一個人和您資產2:3分配(可以為自己):");
             do{
                 scanf("%c",&playerchoice);
                 if(65<=playerchoice&&playerchoice<=64+allplayer)
@@ -400,7 +437,7 @@ void fate(int player,int money[],int price[][4],int type[],int stay[],int level[
             money[player]-=5000;
             dice=rand()%allplayer+1;
             money[dice-1]+=5000;
-            printf("你必須付%c玩家5000元(有可能為自己)\n",dice-1+65);
+            printf("您必須付%c玩家5000元(有可能為自己)\n",dice-1+65);
             break;
         case 5:
             dice=rand()%3+0;
@@ -449,7 +486,7 @@ void fate(int player,int money[],int price[][4],int type[],int stay[],int level[
             temp=money[dice-1];
             money[dice-1]=money[player];
             money[player]=temp;
-            printf("%c的金額和你互換\n",dice-1+65);
+            printf("%c的金額和您互換\n",dice-1+65);
             break;
         case 10:
             for(i=0;i<allplayer-1;i++)
@@ -481,11 +518,11 @@ int main()
     srand(time(NULL));
     do
     {
-        printf("How many player:");
+        printf("決定玩家數了喔(2~4):");
         scanf("%d",&people);
     }
     while(people<2||people>4);
-    printf("player name:\n");
+    printf("輸入名字:\n");
     for(i=0;i<people;i++)
     {
         printf("P%d:",i+1);
@@ -535,10 +572,10 @@ int main()
             printf("\n");
             if(money[i]>=0&&out[i]==0)
             {
-                printf("turn %c\n",65+i);
+                printf("輪到%c\n",65+i);
                 if(stay[i]>0)
                 {
-                    printf("%c need to stay %d\n",65+i,stay[i]);
+                    printf("%c還必須待在此處%d天\n",65+i,stay[i]);
                     system("pause");
                     stay[i]-=1;
                 }
@@ -546,7 +583,7 @@ int main()
                 {
                     system("pause");
                     move(name,level,type,location,people,money,player_name,i);
-                    printf("\nLocation:%d\n",location[i]);
+                    printf("\n地點:%d\n",location[i]);
 
                     if(type[location[i]]==6&&protection[i]==0)
                     {
@@ -620,7 +657,7 @@ int main()
     {
         if(money[i]>=0)
         {
-            printf("%c win",65+i);
+            printf("%c大獲全勝",65+i);
         }
     }
 	return 0;
