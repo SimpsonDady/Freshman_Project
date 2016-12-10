@@ -379,7 +379,7 @@ void chance(int player,int money[],int price[][4],int type[],int stay[],int leve
             else if(flag==16)
             {
                 money[player]+=5487;
-                printf("都有人了幫您QQ，送您5487元\n");
+                printf("選擇一塊無人地(輸入1~20 起點為1 處理器為20)獲得擁有權\n但都有人了幫您QQ，送您5487元\n");
             }
             break;
         case 7:
