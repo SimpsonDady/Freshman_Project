@@ -12,7 +12,7 @@ void move_display(char Mname[][7],int level[],int owner[],int location[],int num
 
     system("CLS");
 
-    for(i=0;i<=temp;i++)
+    for(i=1;i<=temp;i++)
     {
         display(Mname,level,owner,location,num_gamer,money,Pname);
         location[turn]++;
