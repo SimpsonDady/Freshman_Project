@@ -9,15 +9,20 @@ void move_display(char Mname[][7],int level[],int owner[],int location[],int num
 {
     int i;
     location[turn]-=temp;
+    system("CLS");
     for(i=0;i<=temp;i++)
     {
         display(Mname,level,owner,location,num_gamer,money,Pname);
         location[turn]++;
-        Sleep(500);
+        Sleep(1000);
         system("CLS");
+        if(location[i]>19)
+        {
+            location[i]-=20;
+        }
 
     }
-    display(Mname,owner,location,num_gamer,money,Pname);
+    display(Mname,level,owner,location,num_gamer,money,Pname);
 }
 void display(char Mname[][7],int level[],int owner[],int location[],int num_gamer,int money[],char Pname[][50])
 {
