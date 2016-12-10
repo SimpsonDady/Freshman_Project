@@ -7,7 +7,7 @@
 #include <string.h>
 void move_display(char Mname[][7],int level[],int owner[],int location[],int num_gamer,int money[],char Pname[][50],int temp,int turn)
 {
-        int i;
+    int i;
     location[turn]-=temp;
 
     system("CLS");
@@ -149,7 +149,7 @@ void move (int name[][7],int level[],int type[],int location[],int people,int mo
 {
     int dice1 = rand()%6+1, dice2 = rand()%6+1, total;
     total = dice1+dice2;
-    printf("第一顆骰子: %d\n第二顆骰子: %d\n總合為: %d\n",dice1, dice2, total);
+    printf("第一顆骰子: %d\n第二顆骰子: %d\n總和為: %d\n",dice1, dice2, total);
     system("pause");
     location[i]+=total;
 
