@@ -454,8 +454,11 @@ void fate(int player,int money[],int price[][4],int type[],int stay[],int level[
             printf("違建所以隨機降低一棟土地的等級\n");
             break;
         case 3:
-            stay[player]+=3;
-            printf("外星人入侵 所以隨機一名玩家被綁架(待在原地3天)\n");
+            do{
+                dice=rand()%allplayer+1;
+            }while(dice-1==player);
+            stay[dice-1]+=3;
+            printf("外星人入侵 所以%c玩家被綁架(待在原地3天)\n",dice+'A'-1);
             break;
         case 4:
             money[player]-=5000;
