@@ -31,7 +31,7 @@ void display(char Mname[][7],int level[],int owner[],int location[],int num_game
 {
     int i,j,count=7,c,land[4]={0,0,0,0};
     char code[5]={'A','B','C','D','L'};
-    printf("%d",owner[12]);
+
     printf("\n\t\t");
 
     for(i=0;i<6;i++)
