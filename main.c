@@ -29,7 +29,7 @@ void move_display(char Mname[][7],int level[],int owner[],int location[],int num
 }
 void display(char Mname[][7],int level[],int owner[],int location[],int num_gamer,int money[],char Pname[][50])
 {
-    int i,j,count=7,c;
+    int i,j,count=7,c,land[4]={0,0,0,0};
     char code[5]={'A','B','C','D','L'};
     printf("%d",owner[12]);
     printf("\n\t\t");
@@ -123,6 +123,25 @@ void display(char Mname[][7],int level[],int owner[],int location[],int num_game
 
     }
     count=5;
+    for(i=0;i<19;i++)
+    {
+        if(owner[i]==0)
+        {
+            land[0]++;
+        }
+        else if(owner[i]==1)
+        {
+            land[1]++;
+        }
+        else if(owner[i]==2)
+        {
+            land[2]++;
+        }
+        else if(owner[i]==3)
+        {
+            land[3]++;
+        }
+    }
     printf("========================================================================================================================\n\t\t\t\t\t\t\t排行榜\n\n\n");
     printf("\t\t\t代號：\t");
     for(i=0;i<num_gamer;i++)
@@ -141,7 +160,12 @@ void display(char Mname[][7],int level[],int owner[],int location[],int num_game
 
         printf("\t%d\t",money[i]);
     }
+    printf("\n\t\t\t土地數量：");
+    for(i=0;i<num_gamer;i++)
+    {
 
+        printf("\t%d\t",land[i]);
+    }
 
 }
 
