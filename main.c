@@ -314,49 +314,77 @@ void chance(int player,int money[],int price[][4],int type[],int stay[],int leve
             break;
         case 2:
             printf("選擇一塊地(輸入1~20 起點為1 處理器為20)level+1:");
-            do{
-                fflush(stdin);
-                scanf("%d",&choice);
-                choice-=1;
-                if(choice>=20||choice<0)
+            for(i=0;i<20;i++)
+            {
+                if(level[i]==4)
                 {
-                    choice=100;
-                    printf("請再輸入一次:");
+                    flag++;
                 }
-                else if(level[choice]==4||level[choice]<1)
-                {
-                    choice=100;
-                    printf("請再輸入一次:");
-                }
-                else
-                {
-                    level[choice]+=1;
-                }
-            }while(choice>19||choice<0);
-            printf("已升級\n");
+            }
+            if(flag==16)
+            {
+                printf("沒有地可以幫升級喔!!\n");
+            }
+            else
+            {
+                do{
+                    fflush(stdin);
+                    scanf("%d",&choice);
+                    choice-=1;
+                    if(choice>=20||choice<0)
+                    {
+                        choice=100;
+                        printf("請再輸入一次:");
+                    }
+                    else if(level[choice]==4||level[choice]<1)
+                    {
+                        choice=100;
+                        printf("請再輸入一次:");
+                    }
+                    else
+                    {
+                        level[choice]+=1;
+                    }
+                }while(choice>19||choice<0);
+                printf("已升級\n");
+            }
             break;
         case 3:
             printf("選擇一塊地(輸入1~20 起點為1 處理器為20)level-1:");
-            do{
-                fflush(stdin);
-                scanf("%d",&choice);
-                choice-=1;
-                if(choice>=20||choice<0)
+            for(i=0;i<20;i++)
+            {
+                if(level[i]==1)
                 {
-                    choice=100;
-                    printf("請再輸入一次:");
+                    flag++;
                 }
-                else if(level[choice]<=1)
-                {
-                    choice=100;
-                    printf("請再輸入一次:");
-                }
-                else
-                {
-                    level[choice]-=1;
-                }
-            }while(choice>19||choice<0);
-            printf("已降級\n");
+            }
+            if(flag==16)
+            {
+                printf("沒有地可以幫降級喔!!\n");
+            }
+            else
+            {
+                do{
+                    fflush(stdin);
+                    scanf("%d",&choice);
+                    choice-=1;
+                    if(choice>=20||choice<0)
+                    {
+                        choice=100;
+                        printf("請再輸入一次:");
+                    }
+                    else if(level[choice]<=1)
+                    {
+                        choice=100;
+                        printf("請再輸入一次:");
+                    }
+                    else
+                    {
+                        level[choice]-=1;
+                    }
+                }while(choice>19||choice<0);
+                printf("已降級\n");
+            }
             break;
         case 4:
             printf("選擇一地(輸入1~20 起點為1 處理器為20)到達該地點:");
