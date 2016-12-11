@@ -8,6 +8,7 @@
 void move_display(char Mname[][7],int level[],int owner[],int location[],int num_gamer,int money[],char Pname[][50],int temp,int turn)
 {
     int i;
+    char code[5]={'A','B','C','D','L'};
     location[turn]-=temp;
 
     system("CLS");
@@ -17,12 +18,17 @@ void move_display(char Mname[][7],int level[],int owner[],int location[],int num
         display(Mname,level,owner,location,num_gamer,money,Pname);
         location[turn]++;
         Sleep(500);
-        system("CLS");
         if(location[turn]>19)
         {
+            system("CLS");
             location[turn]-=20;
             money[turn]+=2000;
+            display(Mname,level,owner,location,num_gamer,money,Pname);
+            printf("\n%c經過起點獲得2000~~",code[turn]);
+            system("pause");
         }
+        system("CLS");
+
 
     }
     display(Mname,level,owner,location,num_gamer,money,Pname);
