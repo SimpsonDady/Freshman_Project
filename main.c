@@ -204,6 +204,7 @@ void land(int player,int money[],int price[][4],int type[],int level[],int locat
     char decide;
     printf("您想買下這塊地嗎(%d元)?(y/n):",price[location][0]);
     do{
+        fflush(stdin);
         scanf(" %c",&decide);
         if(decide!='y'&&decide!='n')
         {
@@ -279,6 +280,7 @@ void upgrade(int player,int money[],int price[][4],int type[],int level[],int lo
     char decide;
     printf("您想要升級此地嗎(%d元)?(y/n):",price[location][level[location]]);
     do{
+        fflush(stdin);
         scanf(" %c",&decide);
         if(decide!='y'&&decide!='n')
         {
@@ -313,6 +315,7 @@ void chance(int player,int money[],int price[][4],int type[],int stay[],int leve
         case 2:
             printf("選擇一塊地(輸入1~20 起點為1 處理器為20)level+1:");
             do{
+                fflush(stdin);
                 scanf("%d",&choice);
                 choice-=1;
                 if(choice>=20||choice<0)
@@ -335,6 +338,7 @@ void chance(int player,int money[],int price[][4],int type[],int stay[],int leve
         case 3:
             printf("選擇一塊地(輸入1~20 起點為1 處理器為20)level-1:");
             do{
+                fflush(stdin);
                 scanf("%d",&choice);
                 choice-=1;
                 if(choice>=20||choice<0)
@@ -357,6 +361,7 @@ void chance(int player,int money[],int price[][4],int type[],int stay[],int leve
         case 4:
             printf("選擇一地(輸入1~20 起點為1 處理器為20)到達該地點:");
             do{
+                fflush(stdin);
                 scanf("%d",&choice);
                 choice-=1;
             }while(choice>19||choice<0);
@@ -380,6 +385,7 @@ void chance(int player,int money[],int price[][4],int type[],int stay[],int leve
             {
                 printf("選擇一塊無人地(輸入1~20 起點為1 處理器為20)獲得擁有權:");
                 do{
+                    fflush(stdin);
                     scanf("%d",&choice);
                     choice-=1;
                     if(choice>=20||choice<0)
@@ -408,6 +414,7 @@ void chance(int player,int money[],int price[][4],int type[],int stay[],int leve
         case 7:
             printf("選擇一名玩家(輸入英文代號)和您資產2:3分配(可以為自己):");
             do{
+                fflush(stdin);
                 scanf("%c",&playerchoice);
                 if(65<=playerchoice&&playerchoice<=64+allplayer)
                 {
@@ -440,6 +447,7 @@ void chance(int player,int money[],int price[][4],int type[],int stay[],int leve
         case 8:
             printf("選擇一名玩家(輸入英文代號)使他停留3回合:");
             do{
+                fflush(stdin);
                 scanf("%c",&playerchoice);
                 if(65<=playerchoice&&playerchoice<=64+allplayer)
                 {
