@@ -321,6 +321,7 @@ void chance(int player,int money[],int price[][4],int type[],int stay[],int leve
                     printf("請再輸入一次:");
                 }
                 else if(level[choice]==4||level[choice]<1)
+                {
                     choice=100;
                     printf("請再輸入一次:");
                 }
