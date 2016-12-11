@@ -7,16 +7,17 @@
 #include <string.h>
 void move_display(char Mname[][7],int level[],int owner[],int location[],int num_gamer,int money[],char Pname[][50],int temp,int turn)
 {
-    int i;
+    int i,for_temp;
     char code[5]={'A','B','C','D','L'};
     location[turn]-=temp;
-
+    for_temp=temp;
     system("CLS");
 
     for(i=1;i<=temp;i++)
     {
         display(Mname,level,owner,location,num_gamer,money,Pname);
         location[turn]++;
+        printf("\n%c的剩餘步數:%d\n",code[turn],for_temp);
         Sleep(500);
         if(location[turn]>19)
         {
@@ -24,9 +25,12 @@ void move_display(char Mname[][7],int level[],int owner[],int location[],int num
             location[turn]-=20;
             money[turn]+=2000;
             display(Mname,level,owner,location,num_gamer,money,Pname);
-            printf("\n%c經過起點獲得2000~~",code[turn]);
+            printf("\n%c的剩餘步數:%d\n",code[turn],for_temp);
+
+            printf("\n%c經過起點獲得2000~~\n",code[turn]);
             system("pause");
         }
+        for_temp--;
         system("CLS");
 
 
