@@ -21,16 +21,18 @@ void move_display(char Mname[][7],int level[],int owner[],int location[],int num
         Sleep(500);
         if(location[turn]>19)
         {
+            for_temp--;
             system("CLS");
             location[turn]-=20;
             money[turn]+=2000;
             display(Mname,level,owner,location,num_gamer,money,Pname);
             printf("\n%c的剩餘步數:%d\n",code[turn],for_temp);
-
             printf("\n%c經過起點獲得2000~~\n",code[turn]);
             system("pause");
         }
-        for_temp--;
+        else{
+            for_temp--;
+        }
         system("CLS");
 
 
