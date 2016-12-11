@@ -584,18 +584,24 @@ int main()
 {
     int money[4],out[4],location[4],level[20],stay[4],type[20]/*0~3:有人地,4:無人地6:監獄,8:醫院,5:起點7:機會命運*/;
     int people,i,j,flag=0,price[20][4],tolls[20][4],protection[4],dice;
-    char name[20][7],player_name[4][50];
+    char name[20][7],player_name[4][50],line[100];
     srand(time(NULL));
+    FILE* read;
+    read=fopen("大富翁.txt","r");
+    while(fgets(line,sizeof(line),read))
+    {
+        printf("%s",line);
+    }
     do
     {
-        printf("決定玩家數了喔(2~4):");
+        printf("\n\t\t\t\t\t決定玩家數了喔(2~4):");
         scanf("%d",&people);
     }
     while(people<2||people>4);
-    printf("輸入名字:\n");
+    printf("\t\t\t\t\t輸入名字:\n");
     for(i=0;i<people;i++)
     {
-        printf("P%d:",i+1);
+        printf("\t\t\t\t\tP%d:",i+1);
         scanf(" %s",player_name[i]);
     }
     for(i=0;i<=3;i++)
@@ -634,6 +640,7 @@ int main()
     }
     fclose(file);
     system("pause");
+    system("CLS");
     while(flag!=people-1)
     {
         for(i=0;i<people;i++)
@@ -646,14 +653,13 @@ int main()
                 if(stay[i]>0)
                 {
                     printf("%c還必須待在此處%d天\n",65+i,stay[i]);
-                    system("pause");
                     stay[i]-=1;
                 }
                 else
                 {
                     system("pause");
                     move(name,level,type,location,people,money,player_name,i);
-                    printf("\n地點:%d\n",location[i]+1);
+                    printf("\n目前所在地點:%s\n",name[location[i]]);
 
                     if(type[location[i]]==6&&protection[i]==0)
                     {
@@ -683,10 +689,26 @@ int main()
                         if(dice==1)
                         {
                             fate(i,money,price,type,stay,level,tolls,location,people);
+                            if(type[location[i]]==4)
+                            {
+                                land(i,money,price,type,level,location[i]);
+                            }
+                            else if(type[location[i]]==i&&level[location[i]]<=3)
+                            {
+                                upgrade(i,money,price,type,level,location[i]);
+                            }
                         }
                         else if(dice==0)
                         {
                             chance(i,money,price,type,stay,level,tolls,location,people,protection);
+                            if(type[location[i]]==4)
+                            {
+                                land(i,money,price,type,level,location[i]);
+                            }
+                            else if(type[location[i]]==i&&level[location[i]]<=3)
+                            {
+                                upgrade(i,money,price,type,level,location[i]);
+                            }
                         }
                     }
                     else if(type[location[i]]!=i&&type[location[i]]!=4&&type[location[i]]!=5&&type[location[i]]!=6&&type[location[i]]!=7&&type[location[i]]!=8)
@@ -709,11 +731,15 @@ int main()
                 out[i]=1;
                 flag++;
             }
+            if(flag==people-1)
+            {
+                break;
+            }
             if(money[i]>=0)
             {
                 system("pause");
-                system("CLS");
             }
+            system("CLS");
 
         }
     }
