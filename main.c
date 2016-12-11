@@ -506,7 +506,7 @@ void chance(int player,int money[],int price[][4],int type[],int stay[],int leve
             break;
     }
 }
-void fate(int player,int money[],int price[][4],int type[],int stay[],int level[],int tolls[],int location[],int allplayer)
+void fate(int player,int money[],int price[][4],int type[],int stay[],int level[],int tolls[],int location[],int allplayer,char name[][7])
 {
     int dice,corner[4]={0,5,10,15},i,j,sum=0,temp,playerstay[3];
     dice=rand()%10+1;
@@ -524,7 +524,7 @@ void fate(int player,int money[],int price[][4],int type[],int stay[],int level[
                 dice=rand()%19+0;
             }while(level[dice]<=1);
             level[dice]-=1;
-            printf("違建所以隨機降低一棟土地的等級\n");
+            printf("違建所以%s降低一等級\n",name[dice]);
             break;
         case 3:
             dice=rand()%allplayer+1;
@@ -716,7 +716,7 @@ int main()
                         dice=rand()%2;
                         if(dice==1)
                         {
-                            fate(i,money,price,type,stay,level,tolls,location,people);
+                            fate(i,money,price,type,stay,level,tolls,location,people,name);
                             if(type[location[i]]==4)
                             {
                                 land(i,money,price,type,level,location[i]);
