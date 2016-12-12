@@ -637,7 +637,7 @@ int main()
     }
     do
     {
-        printf("\n\t\t\t\t\t決定玩家數了喔(2~4):");
+        printf("\n\n\t\t\t\t\t決定玩家數了喔(2~4):");
         scanf("%d",&people);
     }
     while(people<2||people>4);
