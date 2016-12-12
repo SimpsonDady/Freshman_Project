@@ -721,6 +721,18 @@ int main()
                 if(stay[i]>0)
                 {
                     printf("%c還必須待在此處%d天\n",65+i,stay[i]);
+                    if(type[location[i]]==4)
+                    {
+                        land(i,money,price,type,level,location[i]);
+                    }
+                    else if(type[location[i]]==i&&level[location[i]]<=3)
+                    {
+                        upgrade(i,money,price,type,level,location[i]);
+                    }
+                    else if(type[location[i]]!=i&&type[location[i]]!=4&&type[location[i]]!=5&&type[location[i]]!=6&&type[location[i]]!=7&&type[location[i]]!=8)
+                    {
+                        toll(i,type,money,level,tolls,location[i]);
+                    }
                     stay[i]-=1;
                 }
                 else
