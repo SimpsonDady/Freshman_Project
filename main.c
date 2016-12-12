@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <string.h>
+#define startmoney 25000
+#define passmoney 2000
+
 void move_display(char Mname[][7],int level[],int owner[],int location[],int num_gamer,int money[],char Pname[][50],int temp,int turn)
 {
     int i,for_temp;
@@ -24,7 +27,7 @@ void move_display(char Mname[][7],int level[],int owner[],int location[],int num
             for_temp--;
             system("CLS");
             location[turn]-=20;
-            money[turn]+=2000;
+            money[turn]+=passmoney;
             display(Mname,level,owner,location,num_gamer,money,Pname);
             printf("\n%c的剩餘步數:%d\n",code[turn],for_temp);
             printf("\n%c經過起點獲得2000~~\n",code[turn]);
@@ -647,7 +650,7 @@ int main()
     for(i=0;i<=3;i++)
     {
         stay[i]=0;
-        money[i]=50000;
+        money[i]=startmoney;
         out[i]=0;
         location[i]=0;
         protection[i]=0;
