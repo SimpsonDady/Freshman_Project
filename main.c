@@ -765,6 +765,10 @@ int main()
                             {
                                 upgrade(i,money,price,type,level,location[i]);
                             }
+                            else if(type[location[i]]!=i&&type[location[i]]!=4&&type[location[i]]!=5&&type[location[i]]!=6&&type[location[i]]!=7&&type[location[i]]!=8)
+                            {
+                                toll(i,type,money,level,tolls,location[i]);
+                            }
                         }
                         else if(dice==0)
                         {
@@ -776,6 +780,10 @@ int main()
                             else if(type[location[i]]==i&&level[location[i]]<=3)
                             {
                                 upgrade(i,money,price,type,level,location[i]);
+                            }
+                            else if(type[location[i]]!=i&&type[location[i]]!=4&&type[location[i]]!=5&&type[location[i]]!=6&&type[location[i]]!=7&&type[location[i]]!=8)
+                            {
+                                toll(i,type,money,level,tolls,location[i]);
                             }
                         }
                     }
