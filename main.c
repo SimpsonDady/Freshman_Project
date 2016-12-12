@@ -5,12 +5,12 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <string.h>
-#define startmoney 25000
-#define passmoney 2000
+#define startmoney 4000
+#define passmoney 0
 
 void move_display(char Mname[][7],int level[],int owner[],int location[],int num_gamer,int money[],char Pname[][50],int temp,int turn)
 {
-    int i,for_temp;
+    int i,for_temp,hi=0;
     char code[5]={'A','B','C','D','L'};
     location[turn]-=temp;
     for_temp=temp;
@@ -21,6 +21,10 @@ void move_display(char Mname[][7],int level[],int owner[],int location[],int num
         display(Mname,level,owner,location,num_gamer,money,Pname);
         location[turn]++;
         printf("\n%c的剩餘步數:%d\n",code[turn],for_temp);
+        if(hi==1)
+        {
+            printf("%c經過起點獲得2000~~\n",code[turn]);
+        }
         Sleep(500);
         if(location[turn]>19)
         {
@@ -31,11 +35,13 @@ void move_display(char Mname[][7],int level[],int owner[],int location[],int num
             display(Mname,level,owner,location,num_gamer,money,Pname);
             printf("\n%c的剩餘步數:%d\n",code[turn],for_temp);
             printf("\n%c經過起點獲得2000~~\n",code[turn]);
+            hi=1;
             system("pause");
         }
         else{
             for_temp--;
         }
+
         system("CLS");
 
 
@@ -173,7 +179,14 @@ void display(char Mname[][7],int level[],int owner[],int location[],int num_game
     for(i=0;i<num_gamer;i++)
     {
 
-        printf("\t%d\t",money[i]);
+        if(money[i]<0)
+        {
+            printf("\t破產\t");
+        }
+        else
+        {
+            printf("\t%d\t",money[i]);
+        }
     }
     printf("\n\t\t\t土地數量：");
     for(i=0;i<num_gamer;i++)
@@ -195,9 +208,10 @@ void move (int name[][7],int level[],int type[],int location[],int people,int mo
     move_display(name,level,type,location,people,money,player_name,total,i);
 }
 
-void broke(int player,int level[],int type[])
+void broke(int player,int level[],int type[],int location[])
 {
     int i;
+    location[player]=-1;
     for(i=0;i<=19;i++)
     {
         if(type[i]==player)
@@ -251,32 +265,32 @@ void prison(int player,int stay[])
             printf("您必須待在此處3天，罪名:莫須有\n");
             break;
         case 2:
-            stay[player]=stay[player]+5;
-            printf("您必須待在此處5天，罪名:內亂罪\n");
+            stay[player]=stay[player]+1;
+            printf("您必須待在此處1天，罪名:內亂罪\n");
             break;
         case 3:
             stay[player]=stay[player]+2;
             printf("您必須待在此處2天，罪名:偽造貨幣罪\n");
             break;
         case 4:
-            stay[player]=stay[player]+6;
-            printf("您必須待在此處6天，罪名:公共危險罪\n");
+            stay[player]=stay[player]+2;
+            printf("您必須待在此處2天，罪名:公共危險罪\n");
             break;
         case 5:
-            stay[player]=stay[player]+8;
-            printf("您必須待在此處8天，罪名:公妨害性自主罪\n");
+            stay[player]=stay[player]+4;
+            printf("您必須待在此處4天，罪名:妨害性自主罪\n");
             break;
         case 6:
             stay[player]=stay[player]+1;
             printf("您必須待在此處1天，罪名:褻瀆祀典及侵害墳墓屍體罪\n");
             break;
         case 7:
-            stay[player]=stay[player]+7;
-            printf("您必須待在此處7天，罪名:傷害罪\n");
+            stay[player]=stay[player]+2;
+            printf("您必須待在此處2天，罪名:傷害罪\n");
             break;
         case 8:
-            stay[player]=stay[player]+4;
-            printf("您必須待在此處4天，罪名:妨害自由罪\n");
+            stay[player]=stay[player]+3;
+            printf("您必須待在此處3天，罪名:妨害自由罪\n");
             break;
     }
 
@@ -851,7 +865,9 @@ int main()
             }
             if(money[i]<0&&out[i]==0)
             {
-                broke(i,level,type);
+                broke(i,level,type,location);
+                printf("%c破產了~",i+65);
+                system("pause");
                 out[i]=1;
                 flag++;
             }
