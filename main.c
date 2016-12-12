@@ -733,6 +733,42 @@ int main()
                     {
                         toll(i,type,money,level,tolls,location[i]);
                     }
+                    else if(type[location[i]]==7)
+                    {
+                        dice=rand()%2;
+                        if(dice==1)
+                        {
+                            fate(i,money,price,type,stay,level,tolls,location,people,name);
+                            if(type[location[i]]==4)
+                            {
+                                land(i,money,price,type,level,location[i]);
+                            }
+                            else if(type[location[i]]==i&&level[location[i]]<=3)
+                            {
+                                upgrade(i,money,price,type,level,location[i]);
+                            }
+                            else if(type[location[i]]!=i&&type[location[i]]!=4&&type[location[i]]!=5&&type[location[i]]!=6&&type[location[i]]!=7&&type[location[i]]!=8)
+                            {
+                                toll(i,type,money,level,tolls,location[i]);
+                            }
+                        }
+                        else if(dice==0)
+                        {
+                            chance(i,money,price,type,stay,level,tolls,location,people,protection);
+                            if(type[location[i]]==4)
+                            {
+                                land(i,money,price,type,level,location[i]);
+                            }
+                            else if(type[location[i]]==i&&level[location[i]]<=3)
+                            {
+                                upgrade(i,money,price,type,level,location[i]);
+                            }
+                            else if(type[location[i]]!=i&&type[location[i]]!=4&&type[location[i]]!=5&&type[location[i]]!=6&&type[location[i]]!=7&&type[location[i]]!=8)
+                            {
+                                toll(i,type,money,level,tolls,location[i]);
+                            }
+                        }
+                    }
                     stay[i]-=1;
                 }
                 else
