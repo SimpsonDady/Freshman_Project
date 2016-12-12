@@ -523,7 +523,7 @@ void chance(int player,int money[],int price[][4],int type[],int stay[],int leve
 }
 void fate(int player,int money[],int price[][4],int type[],int stay[],int level[],int tolls[],int location[],int allplayer,char name[][7])
 {
-    int dice,corner[4]={0,5,10,15},i,j,sum=0,temp,playerstay[3];
+    int dice,corner[4]={0,5,10,15},i,j,sum=0,temp,playerstay[3],flag=0;
     dice=rand()%10+1;
     switch(dice)
     {
@@ -534,12 +534,28 @@ void fate(int player,int money[],int price[][4],int type[],int stay[],int level[
             printf("住院7天且付醫藥費4000元\n");
             break;
         case 2:
-            do
+            for(i=0;i<20;i++)
             {
-                dice=rand()%19+0;
-            }while(level[dice]<=1);
-            level[dice]-=1;
-            printf("違建所以%s降低一等級\n",name[dice]);
+                if(level[i]==1)
+                {
+                    flag++;
+                }
+            }
+            if(flag==16)
+            {
+                dice=rand()%allplayer+1;
+                money[dice-1]-=2000;
+                printf("沒有地可以降級，扣%c 2000元\n",dice-1+'A');
+            }
+            else
+            {
+                do
+                {
+                    dice=rand()%19+0;
+                }while(level[dice]<=1);
+                level[dice]-=1;
+                printf("違建所以%s降低一等級\n",name[dice]);
+            }
             break;
         case 3:
             dice=rand()%allplayer+1;
@@ -626,7 +642,7 @@ void fate(int player,int money[],int price[][4],int type[],int stay[],int level[
 int main()
 {
     int money[4],out[4],location[4],level[20],stay[4],type[20]/*0~3:有人地,4:無人地6:監獄,8:醫院,5:起點7:機會命運*/;
-    int people,i,j,flag=0,price[20][4],tolls[20][4],protection[4],dice;
+    int people,i,j,flag=0,price[20][4],tolls[20][4],protection[4],dice,num=0;
     char name[20][7],player_name[4][50],line[100];
     srand(time(NULL));
     FILE* read;
@@ -641,11 +657,20 @@ int main()
         scanf("%d",&people);
     }
     while(people<2||people>4);
-    printf("\t\t\t\t\t輸入名字:\n");
+    printf("\t\t\t\t\t輸入名字(最多7個英文字或3個中文字):\n");
     for(i=0;i<people;i++)
     {
-        printf("\t\t\t\t\tP%d:",i+1);
-        scanf(" %s",player_name[i]);
+        do
+        {
+            num=0;
+            printf("\t\t\t\t\tP%d:",i+1);
+            scanf(" %s",player_name[i]);
+            if(strlen(player_name[i])>7)
+            {
+                num=1;
+            }
+        }
+        while(num==1);
     }
     for(i=0;i<=3;i++)
     {
