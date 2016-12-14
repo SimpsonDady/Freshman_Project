@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <string.h>
-#define startmoney 4000
-#define passmoney 0
+#define startmoney 25000
+#define passmoney 2000
 
 void move_display(char Mname[][7],int level[],int owner[],int location[],int num_gamer,int money[],char Pname[][50],int temp,int turn)
 {
@@ -20,7 +20,7 @@ void move_display(char Mname[][7],int level[],int owner[],int location[],int num
     {
         display(Mname,level,owner,location,num_gamer,money,Pname);
         location[turn]++;
-        printf("\n%c的剩餘步數:%d\n",code[turn],for_temp);
+        printf("%c的剩餘步數:%d\n",code[turn],for_temp);
         if(hi==1)
         {
             printf("%c經過起點獲得2000~~\n",code[turn]);
@@ -47,6 +47,69 @@ void move_display(char Mname[][7],int level[],int owner[],int location[],int num
 
     }
     display(Mname,level,owner,location,num_gamer,money,Pname);
+}
+void end(void)
+{
+
+    int i,j,c;
+    system("CLS");
+    char line[100];
+    FILE* read;
+    read=fopen("大富翁.txt","r");
+    while(fgets(line,sizeof(line),read))
+    {
+        printf("%s",line);
+    }
+    Sleep(2000);
+    char str[5][100]={"指導教授：","陳奕中","撰寫者：","李建興    林品侑    李香蘭    柯博瀚","感謝您的支持~~"};
+    system("CLS");
+    for(i=23;i>-6;i--)
+    {
+        for(j=i-5;j>-5;j--)
+        {
+            printf("\n");
+
+        }
+        if(i<=23&&i>=1)
+        {
+        printf("\t\t\t       %s\n",str[0]);
+        }
+        if(i<=22&&i>=0)
+        {
+            printf("\t\t\t\t%s\n",str[1]);
+        }
+        if(i<=21&&i>=-3)
+        {
+            if(i>-3)
+            {
+                printf("\n\n");
+            }
+            else
+            {
+                printf("\n");
+            }
+            printf("\t\t\t\t%s\n",str[2]);
+        }
+        if(i<=20&&i>=-4)
+        {
+            if(i<=-4)
+            {
+                for(c=i;c>-3;c--)
+                {
+                    printf("\n");
+                }
+
+            }
+            printf("\t\t%s\n",str[3]);
+        }
+        if(i==-5)
+        {
+            printf("\n\n\n\n\n\n\n\n\t\t\t\t%s\n",str[4]);
+            Sleep(2000);
+        }
+        Sleep(300);
+        system("CLS");
+    }
 }
 void display(char Mname[][7],int level[],int owner[],int location[],int num_gamer,int money[],char Pname[][50])
 {
@@ -866,7 +929,7 @@ int main()
             if(money[i]<0&&out[i]==0)
             {
                 broke(i,level,type,location);
-                printf("%c破產了~",i+65);
+                printf("%c破產了~\n",i+65);
                 system("pause");
                 out[i]=1;
                 flag++;
@@ -888,6 +951,8 @@ int main()
         if(money[i]>=0)
         {
             printf("%c大獲全勝",65+i);
+            Sleep(1000);
+            end();
         }
     }
 	return 0;
