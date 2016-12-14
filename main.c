@@ -294,27 +294,27 @@ void toll(int player,int type[],int money[],int level[],int tolls[][4],int locat
 void land(int player,int money[],int price[][4],int type[],int level[],int location)
 {
     char decide;
-    printf("您想買下這塊地嗎(%d元)?(y/n):",price[location][0]);
-    do{
-        fflush(stdin);
-        scanf(" %c",&decide);
-        if(decide!='y'&&decide!='n')
-        {
-            printf("請再輸入一次:");
-        }
-    }while(decide!='y'&&decide!='n');
-    if(decide=='y')
+    if(money[player]<price[location][0])
     {
-        if(money[player]<price[location][0])
-        {
-            printf("您的錢錢不夠喔\n");
-        }
-        else
+            printf("您的錢不夠購買喔\n");
+    }
+    else{
+        printf("您想買下這塊地嗎(%d元)?(y/n):",price[location][0]);
+        do{
+            fflush(stdin);
+            scanf(" %c",&decide);
+            if(decide!='y'&&decide!='n')
+            {
+                printf("請再輸入一次:");
+            }
+        }while(decide!='y'&&decide!='n');
+        if(decide=='y')
         {
             money[player]-=price[location][0];
             type[location]=player;
             printf("%c剩下:%d元\n",player+'A',money[player]);
         }
+        else if(decide=='n');
     }
 }
 void prison(int player,int stay[])
@@ -340,8 +340,8 @@ void prison(int player,int stay[])
             printf("您必須待在此處2天，罪名:公共危險罪\n");
             break;
         case 5:
-            stay[player]=stay[player]+4;
-            printf("您必須待在此處4天，罪名:妨害性自主罪\n");
+            stay[player]=stay[player]+3;
+            printf("您必須待在此處3天，罪名:妨害性自主罪\n");
             break;
         case 6:
             stay[player]=stay[player]+1;
@@ -362,36 +362,35 @@ void prison(int player,int stay[])
 void hospital(int player,int money[],int stay[])
 {
     money[player]-=1000;
-    stay[player]=stay[player]+3;
-    printf("您受傷了需要住院治療3天並付醫藥費1000元喔!!\n");
+    stay[player]=stay[player]+2;
+    printf("您受傷了需要住院治療2天並付醫藥費1000元喔!!\n");
     printf("%c剩下:%d元\n",player+'A',money[player]);
 
 }
 void upgrade(int player,int money[],int price[][4],int type[],int level[],int location)
 {
     char decide;
-    printf("您想要升級此地嗎(%d元)?(y/n):",price[location][level[location]]);
-    do{
-        fflush(stdin);
-        scanf(" %c",&decide);
-        if(decide!='y'&&decide!='n')
-        {
-            printf("請再輸入一次\n");
-        }
-    }while(decide!='y'&&decide!='n');
-    if(decide=='y'){
-        if(money[player]<price[location][level[location]])
-        {
-            printf("您的錢不夠喔\n");
-        }
-        else
-        {
-            money[player]-=price[location][level[location]];
-            level[location]+=1;
-            printf("%c剩下:%d元\n",player+'A',money[player]);
-        }
+    if(money[player]<price[location][level[location]])
+    {
+            printf("您的錢不夠升級喔\n");
     }
-    else if(decide=='n');
+    else{
+        printf("您想要升級此地嗎(%d元)?(y/n):",price[location][level[location]]);
+        do{
+            fflush(stdin);
+            scanf(" %c",&decide);
+            if(decide!='y'&&decide!='n')
+            {
+                printf("請再輸入一次\n");
+            }
+        }while(decide!='y'&&decide!='n');
+        if(decide=='y'){
+                money[player]-=price[location][level[location]];
+                level[location]+=1;
+                printf("%c剩下:%d元\n",player+'A',money[player]);
+        }
+        else if(decide=='n');
+    }
 }
 void chance(int player,int money[],int price[][4],int type[],int stay[],int level[],int tolls[],int location[],int allplayer,int protection[])
 {
@@ -679,11 +678,15 @@ void fate(int player,int money[],int price[][4],int type[],int stay[],int level[
             printf("在公共場所裸奔加性騷擾 進監獄10天和被罰4000元\n");
             break;
         case 8:
-            for(i=0;i<4;i++)
+            for(i=0;i<allplayer;i++)
             {
-                money[i]-=2000;
+                money[i]=money[i]*2/3;
             }
-            printf("每個人都少2000元\n");
+            printf("全部人金額*2/3\n");
+            for(i=0;i<allplayer;i++)
+            {
+                printf("%c剩下:%d元\n",i+'A',money[i]);
+            }
             break;
         case 9:
             do{
