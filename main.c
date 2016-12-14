@@ -691,7 +691,7 @@ void fate(int player,int money[],int price[][4],int type[],int stay[],int level[
         case 9:
             do{
                 dice=rand()%allplayer+1;
-            }while(dice-1==player);
+            }while(dice-1==player||money[dice-1]<0);
             temp=money[dice-1];
             money[dice-1]=money[player];
             money[player]=temp;
