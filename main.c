@@ -723,7 +723,7 @@ int main()
 {
     int money[4],out[4],location[4],level[20],stay[4],type[20]/*0~3:有人地,4:無人地6:監獄,8:醫院,5:起點7:機會命運*/;
     int people,i,j,flag=0,price[20][4],tolls[20][4],protection[4],dice,num=0;
-    char name[20][7],player_name[4][50],line[100];
+    char name[20][7],player_name[4][50],line[100],line2[100];
     srand(time(NULL));
     FILE* read;
     read=fopen("大富翁.txt","r");
@@ -760,6 +760,7 @@ int main()
         location[i]=0;
         protection[i]=0;
     }
+    //money[0]=-1;
     for(i=0;i<=19;i++)
     {
         if(i%5==0)
@@ -949,11 +950,19 @@ int main()
 
         }
     }
+    system("CLS");
+    read=fopen("Gameover.txt","r");
+    while(fgets(line2,sizeof(line2),read))
+    {
+        printf("%s",line2);
+    }
     for(i=0;i<people;i++)
     {
         if(money[i]>=0)
         {
-            printf("%c大獲全勝",65+i);
+            printf("\n\n\t\t\t\t\t\t\t\t%c大獲全勝",65+i);
+            printf("\n\t\t\t\t\t\t\t");
+            system("pause");
             Sleep(1000);
             end();
         }
