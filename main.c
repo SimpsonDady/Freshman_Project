@@ -723,7 +723,7 @@ int main()
 {
     int money[4],out[4],location[4],level[20],stay[4],type[20]/*0~3:有人地,4:無人地6:監獄,8:醫院,5:起點7:機會命運*/;
     int people,i,j,flag=0,price[20][4],tolls[20][4],protection[4],dice,num=0;
-    char name[20][7],player_name[4][50],line[100],line2[100];
+    char name[20][7],player_name[4][50],line[100],line2[100],player_num;
     srand(time(NULL));
     FILE* read;
     read=fopen("大富翁.txt","r");
@@ -733,18 +733,20 @@ int main()
     }
     do
     {
+        fflush(stdin);
         printf("\n\n\t\t\t\t\t決定玩家數了喔(2~4):");
-        scanf("%d",&people);
+        scanf(" %c",&player_num);
     }
-    while(people<2||people>4);
+    while(!(player_num-'0'>=2&&player_num-'0'<=4));
     printf("\t\t\t\t\t輸入名字(最多7個英文字或3個中文字):\n");
+    people=player_num-'0';
     for(i=0;i<people;i++)
     {
         do
         {
             num=0;
             printf("\t\t\t\t\tP%d:",i+1);
-            scanf(" %s",player_name[i]);
+            scanf(" %[^\n]",player_name[i]);
             if(strlen(player_name[i])>7)
             {
                 num=1;
@@ -760,7 +762,6 @@ int main()
         location[i]=0;
         protection[i]=0;
     }
-    //money[0]=-1;
     for(i=0;i<=19;i++)
     {
         if(i%5==0)
